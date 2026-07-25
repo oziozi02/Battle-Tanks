@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags: []
   layers:
   - Default
@@ -41,3 +41,33 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Ground
+    uniqueID: 1274421579
+    locked: 0
+  - name: Water
+    uniqueID: 4214265977
+    locked: 0
+  - name: Ice
+    uniqueID: 3402046309
+    locked: 0
+  - name: Brick
+    uniqueID: 3217529181
+    locked: 0
+  - name: Steel
+    uniqueID: 2956407469
+    locked: 0
+  - name: Tank
+    uniqueID: 4174087137
+    locked: 0
+  - name: Bullet
+    uniqueID: 1125168493
+    locked: 0
+  - name: Trees
+    uniqueID: 957530477
+    locked: 0
+  - name: UI
+    uniqueID: 3377876355
+    locked: 0
+  m_RenderingLayers:
+  - Default
+  m_MigratedRenderPipelines: []
