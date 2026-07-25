@@ -65,6 +65,13 @@ public class Bullet : MonoBehaviour
             }
         }
 
+        // Check if we hit the player
+        PlayerHealth player = other.GetComponent<PlayerHealth>();
+        if (player != null)
+        {
+            player.TakeDamage();
+        }
+
         Destroy(gameObject);
     }
 }
