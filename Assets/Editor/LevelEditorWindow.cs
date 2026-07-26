@@ -7,7 +7,8 @@ public class LevelEditorWindow : EditorWindow
     private TileType selectedTileType = TileType.Brick;
     private Vector2 scrollPos;
     private const int cellPixelSize = 20;
-    private enum EditMode { Tiles, SpawnPoints, Eagle }
+
+    private enum EditMode { Tiles, SpawnPoints }
     private EditMode currentMode = EditMode.Tiles;
     private int selectedSpawnIndex = 0;
 
@@ -43,15 +44,23 @@ public class LevelEditorWindow : EditorWindow
 
         scrollPos = EditorGUILayout.BeginScrollView(scrollPos, GUILayout.Height(500));
 
-        for (int y = currentLevel.height - 1; y >= 0; y--)
+        for (int y = currentLevel.height - 2; y >= 1; y--)
         {
             EditorGUILayout.BeginHorizontal();
-            for (int x = 0; x < currentLevel.width; x++)
+            for (int x = 1; x < currentLevel.width - 1; x++)
             {
+                bool isEagleTile = (y == 1) && (x == 12 || x == 13);
+                bool isEagleSurround = (y == 1 && (x == 11 || x == 14)) || (y == 2 && (x == 11 || x == 12 || x == 13 || x == 14));
+
+                if (isEagleTile || isEagleSurround)
+                {
+                    GUILayout.Label(isEagleTile ? "E" : "B", GUILayout.Width(cellPixelSize), GUILayout.Height(cellPixelSize));
+                    continue;
+                }
+
                 TileType tile = currentLevel.GetTile(x, y);
                 Color color = GetColorForTile(tile);
 
-                GUI.backgroundColor = color;
                 bool isSpawnPoint = false;
                 int spawnIdx = -1;
                 for (int i = 0; i < currentLevel.enemySpawnPoints.Length; i++)
@@ -62,13 +71,9 @@ public class LevelEditorWindow : EditorWindow
                         spawnIdx = i;
                     }
                 }
-                bool isEaglePos = currentLevel.eaglePosition.x == x && currentLevel.eaglePosition.y == y;
 
-                Color originalColor = GUI.backgroundColor;
-                if (isEaglePos) GUI.backgroundColor = Color.yellow;
-                else if (isSpawnPoint) GUI.backgroundColor = Color.magenta;
-
-                string label = isEaglePos ? "E" : (isSpawnPoint ? ("S" + spawnIdx) : "");
+                GUI.backgroundColor = isSpawnPoint ? Color.magenta : color;
+                string label = isSpawnPoint ? ("S" + spawnIdx) : "";
 
                 if (GUILayout.Button(label, GUILayout.Width(cellPixelSize), GUILayout.Height(cellPixelSize)))
                 {
@@ -81,13 +86,8 @@ public class LevelEditorWindow : EditorWindow
                     {
                         currentLevel.enemySpawnPoints[selectedSpawnIndex] = new Vector2Int(x, y);
                     }
-                    else if (currentMode == EditMode.Eagle)
-                    {
-                        currentLevel.eaglePosition = new Vector2Int(x, y);
-                    }
                     EditorUtility.SetDirty(currentLevel);
                 }
-                GUI.backgroundColor = originalColor;
             }
             EditorGUILayout.EndHorizontal();
         }

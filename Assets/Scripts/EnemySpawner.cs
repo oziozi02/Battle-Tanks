@@ -54,4 +54,23 @@ public class EnemySpawner : MonoBehaviour
         enemiesRemaining--;
         GameManager.Instance.UpdateEnemyCountUI(enemiesRemaining);
     }
+
+    public void ResetSpawner()
+    {
+        StopAllCoroutines();
+        foreach (var enemy in activeEnemies)
+        {
+            if (enemy != null) Destroy(enemy);
+        }
+        activeEnemies.Clear();
+        enemiesSpawned = 0;
+        enemiesRemaining = totalEnemiesPerStage;
+        GameManager.Instance.UpdateEnemyCountUI(enemiesRemaining);
+        StartCoroutine(SpawnLoop());
+    }
+
+    public void SetSpawnPoints(Transform[] points)
+    {
+        spawnPoints = points;
+    }
 }

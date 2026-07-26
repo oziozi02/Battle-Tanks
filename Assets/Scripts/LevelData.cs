@@ -16,11 +16,9 @@ public class LevelData : ScriptableObject
     public int width = 26;
     public int height = 26;
 
-    // Flattened grid - index = y * width + x
     public TileType[] tiles;
 
     public Vector2Int[] enemySpawnPoints = new Vector2Int[3];
-    public Vector2Int eaglePosition;
 
     public TileType GetTile(int x, int y)
     {

@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -38,15 +39,23 @@ public class GameManager : MonoBehaviour
         if (gameEnded) return;
         gameEnded = true;
 
-        Time.timeScale = 0f;
         gameOverPanel.SetActive(true);
         gameOverReasonText.text = reason;
     }
 
     void WinGame()
     {
+        if (gameEnded) return;
         gameEnded = true;
-        Time.timeScale = 0f;
+        StartCoroutine(WinSequence());
+    }
+
+    IEnumerator WinSequence()
+    {
         winPanel.SetActive(true);
+        yield return new WaitForSecondsRealtime(2f);
+        winPanel.SetActive(false);
+        gameEnded = false;
+        StageManager.Instance.NextStage();
     }
 }
