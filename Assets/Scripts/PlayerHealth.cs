@@ -7,7 +7,7 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage()
     {
         lives--;
-        Debug.Log("Lives remaining: " + lives);
+        GameManager.Instance.UpdateLivesUI(lives);
 
         if (lives <= 0)
         {
