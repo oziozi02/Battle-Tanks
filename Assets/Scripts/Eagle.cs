@@ -7,8 +7,7 @@ public class Eagle : MonoBehaviour
         Bullet bullet = other.GetComponent<Bullet>();
         if (bullet != null)
         {
-            Debug.Log("GAME OVER - Eagle destroyed!");
-            // We'll add proper game over logic here later
+            GameManager.Instance.GameOver("Base destroyed!");
             Destroy(gameObject);
         }
     }

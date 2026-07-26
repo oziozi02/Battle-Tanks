@@ -13,6 +13,7 @@ public class PlayerHealth : MonoBehaviour
         {
             Debug.Log("Game Over!");
             gameObject.SetActive(false);
+            GameManager.Instance.GameOver("Out of lives!");
         }
         else
         {

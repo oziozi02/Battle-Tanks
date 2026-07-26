@@ -7,6 +7,11 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI livesText;
     public TextMeshProUGUI enemyCountText;
+    public GameObject gameOverPanel;
+    public GameObject winPanel;
+    public TextMeshProUGUI gameOverReasonText;
+
+    private bool gameEnded = false;
 
     void Awake()
     {
@@ -21,5 +26,27 @@ public class GameManager : MonoBehaviour
     public void UpdateEnemyCountUI(int remaining)
     {
         enemyCountText.text = "Enemies: " + remaining;
+
+        if (remaining <= 0 && !gameEnded)
+        {
+            WinGame();
+        }
+    }
+
+    public void GameOver(string reason)
+    {
+        if (gameEnded) return;
+        gameEnded = true;
+
+        Time.timeScale = 0f;
+        gameOverPanel.SetActive(true);
+        gameOverReasonText.text = reason;
+    }
+
+    void WinGame()
+    {
+        gameEnded = true;
+        Time.timeScale = 0f;
+        winPanel.SetActive(true);
     }
 }
