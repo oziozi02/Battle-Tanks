@@ -3,6 +3,9 @@ using UnityEngine.Tilemaps;
 
 public class Bullet : MonoBehaviour
 {
+    public enum OwnerType { Player, Enemy }
+    public OwnerType owner;
+
     public float speed = 10f;
     private Vector2 direction;
     private bool hasHit = false;
@@ -10,6 +13,11 @@ public class Bullet : MonoBehaviour
     public void SetDirection(Vector2 dir)
     {
         direction = dir;
+    }
+
+    public void SetOwner(OwnerType ownerType)
+    {
+        owner = ownerType;
     }
 
     void Start()
@@ -20,15 +28,42 @@ public class Bullet : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (hasHit) return;
+
+        // Ignore bullets hitting their own side
+        if (owner == OwnerType.Player && other.GetComponent<EnemyTank>() == null && other.CompareTag("Player"))
+            return;
+        if (owner == OwnerType.Enemy && other.CompareTag("Enemy"))
+            return;
+
         hasHit = true;
 
+        // Damage player
+        if (owner == OwnerType.Enemy)
+        {
+            PlayerHealth player = other.GetComponent<PlayerHealth>();
+            if (player != null)
+            {
+                player.TakeDamage();
+            }
+        }
+
+        // Damage enemy
+        if (owner == OwnerType.Player)
+        {
+            EnemyTank enemy = other.GetComponent<EnemyTank>();
+            if (enemy != null)
+            {
+                Destroy(enemy.gameObject);
+            }
+        }
+
+        // Brick destruction (unchanged)
         TilemapCollider2D tilemapCollider = other.GetComponent<TilemapCollider2D>();
         if (tilemapCollider != null)
         {
             Tilemap tilemap = tilemapCollider.GetComponent<Tilemap>();
             if (tilemap != null && tilemap.name == "BrickTilemap")
             {
-                // Get the closest tile by checking a small area around the bullet
                 BoundsInt area = new BoundsInt(
                     tilemap.WorldToCell(transform.position) - new Vector3Int(1, 1, 0),
                     new Vector3Int(3, 3, 1)
@@ -44,8 +79,6 @@ public class Bullet : MonoBehaviour
                     {
                         Vector3 tileCenter = tilemap.GetCellCenterWorld(pos);
                         Vector3 toTile = tileCenter - transform.position;
-
-                        // Check tile is in front of bullet direction
                         float dot = Vector2.Dot(direction, new Vector2(toTile.x, toTile.y));
                         float distance = Vector3.Distance(tileCenter, transform.position);
 
@@ -63,13 +96,6 @@ public class Bullet : MonoBehaviour
                     tilemap.SetTile(bestTile, null);
                 }
             }
-        }
-
-        // Check if we hit the player
-        PlayerHealth player = other.GetComponent<PlayerHealth>();
-        if (player != null)
-        {
-            player.TakeDamage();
         }
 
         Destroy(gameObject);

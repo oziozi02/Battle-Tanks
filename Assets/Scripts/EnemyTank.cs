@@ -82,6 +82,7 @@ public class EnemyTank : MonoBehaviour
             GameObject bullet = Instantiate(bulletPrefab, barrelTip.position, Quaternion.identity);
             Bullet b = bullet.GetComponent<Bullet>();
             b.SetDirection(currentDirection);
+            b.SetOwner(Bullet.OwnerType.Enemy);
             Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
     }

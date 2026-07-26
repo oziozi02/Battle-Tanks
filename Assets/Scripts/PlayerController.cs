@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, barrelTip.position, Quaternion.identity);
         Bullet b = bullet.GetComponent<Bullet>();
         b.SetDirection(lastDirection);
+        b.SetOwner(Bullet.OwnerType.Player);
         Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         StartCoroutine(ShootCooldown());
     }
