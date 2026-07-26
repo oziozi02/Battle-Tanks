@@ -53,7 +53,9 @@ public class Bullet : MonoBehaviour
             EnemyTank enemy = other.GetComponent<EnemyTank>();
             if (enemy != null)
             {
-                Destroy(enemy.gameObject);
+                enemy.TakeDamage();
+                Destroy(gameObject);
+                return;
             }
         }
 

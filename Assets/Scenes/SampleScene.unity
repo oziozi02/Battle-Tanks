@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTank (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6233079827044801395, guid: 095db3ff6ad7ead4cbfa1ec01c7a2cf5, type: 3}
+      propertyPath: tankType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1820,6 +1824,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyTank (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6233079827044801395, guid: 095db3ff6ad7ead4cbfa1ec01c7a2cf5, type: 3}
+      propertyPath: tankType
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3055,6 +3063,67 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!1001 &1863070707
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2070309107105123756, guid: 095db3ff6ad7ead4cbfa1ec01c7a2cf5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070309107105123756, guid: 095db3ff6ad7ead4cbfa1ec01c7a2cf5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070309107105123756, guid: 095db3ff6ad7ead4cbfa1ec01c7a2cf5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070309107105123756, guid: 095db3ff6ad7ead4cbfa1ec01c7a2cf5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070309107105123756, guid: 095db3ff6ad7ead4cbfa1ec01c7a2cf5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070309107105123756, guid: 095db3ff6ad7ead4cbfa1ec01c7a2cf5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070309107105123756, guid: 095db3ff6ad7ead4cbfa1ec01c7a2cf5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070309107105123756, guid: 095db3ff6ad7ead4cbfa1ec01c7a2cf5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070309107105123756, guid: 095db3ff6ad7ead4cbfa1ec01c7a2cf5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070309107105123756, guid: 095db3ff6ad7ead4cbfa1ec01c7a2cf5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5147452571417009409, guid: 095db3ff6ad7ead4cbfa1ec01c7a2cf5, type: 3}
+      propertyPath: m_Name
+      value: EnemyTank (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6233079827044801395, guid: 095db3ff6ad7ead4cbfa1ec01c7a2cf5, type: 3}
+      propertyPath: tankType
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 095db3ff6ad7ead4cbfa1ec01c7a2cf5, type: 3}
 --- !u!1001 &7233691246565347317
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3122,4 +3191,5 @@ SceneRoots:
   - {fileID: 7233691246565347317}
   - {fileID: 389197104}
   - {fileID: 1649064792}
+  - {fileID: 1863070707}
   - {fileID: 1454071535}
