@@ -17,6 +17,35 @@ public class EnemyTank : MonoBehaviour
     private Vector2 currentDirection = Vector2.down;
     private SpriteRenderer sr;
     private int maxHealth;
+    private bool isFrozen = false;
+    private static float globalFreezeUntil = 0f;
+
+    public static void FreezeAll(float duration)
+    {
+        globalFreezeUntil = Time.time + duration;
+
+        EnemyTank[] enemies = FindObjectsByType<EnemyTank>();
+        foreach (EnemyTank enemy in enemies)
+        {
+            enemy.ApplyFreeze();
+        }
+    }
+
+    void ApplyFreeze()
+    {
+        float remaining = globalFreezeUntil - Time.time;
+        if (remaining > 0)
+        {
+            StartCoroutine(FreezeCoroutine(remaining));
+        }
+    }
+
+    IEnumerator FreezeCoroutine(float duration)
+    {
+        isFrozen = true;
+        yield return new WaitForSeconds(duration);
+        isFrozen = false;
+    }
 
     void Start()
     {
@@ -24,6 +53,8 @@ public class EnemyTank : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         maxHealth = health;
         ConfigureByType();
+        RotateToDirection();
+        ApplyFreeze();
         StartCoroutine(ChangeDirection());
         StartCoroutine(Shoot());
     }
@@ -70,8 +101,19 @@ public class EnemyTank : MonoBehaviour
         }
     }
 
+    public void InstantKill()
+    {
+        Destroy(gameObject);
+        FindAnyObjectByType<EnemySpawner>().OnEnemyDestroyed();
+    }
+
     void FixedUpdate()
     {
+        if (isFrozen)
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
         rb.linearVelocity = currentDirection * moveSpeed;
     }
 
@@ -87,6 +129,8 @@ public class EnemyTank : MonoBehaviour
 
     void Update()
     {
+        if (isFrozen) return;
+
         if (Vector2.Distance(rb.position, lastPosition) < 0.01f)
         {
             stuckTimer += Time.fixedDeltaTime;
@@ -119,6 +163,7 @@ public class EnemyTank : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (isFrozen) return;
         ForceNewDirection();
     }
 
@@ -126,10 +171,12 @@ public class EnemyTank : MonoBehaviour
     {
         while (true)
         {
+            yield return new WaitForSeconds(directionChangeInterval);
+            if (isFrozen) continue;
+
             Vector2[] directions = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
             currentDirection = directions[Random.Range(0, directions.Length)];
             RotateToDirection();
-            yield return new WaitForSeconds(directionChangeInterval);
         }
     }
 
@@ -138,6 +185,8 @@ public class EnemyTank : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(1f, 3f));
+            if (isFrozen) continue;
+
             GameObject bullet = Instantiate(bulletPrefab, barrelTip.position, Quaternion.identity);
             Bullet b = bullet.GetComponent<Bullet>();
             b.SetDirection(currentDirection);

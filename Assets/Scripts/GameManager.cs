@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     {
         gameOverPanel.SetActive(false);
         gameEnded = false;
-        FindObjectOfType<PlayerHealth>().ResetPlayer();
+        FindAnyObjectByType<PlayerHealth>().ResetPlayer();
         StageManager.Instance.RetryStage();
     }
 

@@ -57,6 +57,9 @@ TagManager:
   - name: Steel
     uniqueID: 2956407469
     locked: 0
+  - name: PowerUp
+    uniqueID: 793784623
+    locked: 0
   - name: Tank
     uniqueID: 4174087137
     locked: 0
