@@ -12,6 +12,17 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform barrelTip;
     private bool canShoot = true;
+    private int starLevel = 0; // 0 = base, 1 = faster bullets, 2 = double bullets, 3 = destroys steel
+
+    public void UpgradeStar()
+    {
+        starLevel = Mathf.Min(starLevel + 1, 3);
+    }
+
+    public void ResetStarLevel()
+    {
+        starLevel = 0;
+    }
 
     void Start()
     {
@@ -54,12 +65,40 @@ public class PlayerController : MonoBehaviour
     void Shoot()
     {
         canShoot = false;
+        FireSingleBullet();
+
+        if (starLevel >= 2)
+        {
+            StartCoroutine(FireSecondBulletDelayed());
+        }
+
+        StartCoroutine(ShootCooldown());
+    }
+
+    IEnumerator FireSecondBulletDelayed()
+    {
+        yield return new WaitForSeconds(0.1f);
+        FireSingleBullet();
+    }
+
+    void FireSingleBullet()
+    {
         GameObject bullet = Instantiate(bulletPrefab, barrelTip.position, Quaternion.identity);
         Bullet b = bullet.GetComponent<Bullet>();
         b.SetDirection(lastDirection);
         b.SetOwner(Bullet.OwnerType.Player);
+
+        if (starLevel >= 1)
+        {
+            b.speed = 15f;
+        }
+
+        if (starLevel >= 3)
+        {
+            b.canDestroySteel = true;
+        }
+
         Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-        StartCoroutine(ShootCooldown());
     }
 
     IEnumerator ShootCooldown()

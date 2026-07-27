@@ -5,6 +5,7 @@ public class Bullet : MonoBehaviour
 {
     public enum OwnerType { Player, Enemy }
     public OwnerType owner;
+    public bool canDestroySteel = false;
 
     public float speed = 10f;
     private Vector2 direction;
@@ -64,7 +65,7 @@ public class Bullet : MonoBehaviour
         if (tilemapCollider != null)
         {
             Tilemap tilemap = tilemapCollider.GetComponent<Tilemap>();
-            if (tilemap != null && tilemap.name == "BrickTilemap")
+            if (tilemap != null && (tilemap.name == "BrickTilemap" || (tilemap.name == "SteelTilemap" && canDestroySteel)))
             {
                 BoundsInt area = new BoundsInt(
                     tilemap.WorldToCell(transform.position) - new Vector3Int(1, 1, 0),
@@ -98,6 +99,7 @@ public class Bullet : MonoBehaviour
                     tilemap.SetTile(bestTile, null);
                 }
             }
+
         }
 
         Destroy(gameObject);

@@ -38,6 +38,9 @@ public class PlayerHealth : MonoBehaviour
         gameObject.SetActive(true);
         transform.position = startingPosition;
         GameManager.Instance.UpdateLivesUI(lives);
+
+        PlayerController pc = GetComponent<PlayerController>();
+        if (pc != null) pc.ResetStarLevel();
     }
 
     public void AddLife()

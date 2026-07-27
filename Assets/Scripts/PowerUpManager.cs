@@ -23,7 +23,7 @@ public class PowerUpManager : MonoBehaviour
                 ActivateShovel();
                 break;
             case PowerUpType.Star:
-                Debug.Log("Star activated");
+                ActivateStar();
                 break;
             case PowerUpType.Tank:
                 ActivateTank();
@@ -61,5 +61,10 @@ public class PowerUpManager : MonoBehaviour
     void ActivateShovel()
     {
         FindAnyObjectByType<LevelLoader>().ActivateShovel(15f);
+    }
+
+    void ActivateStar()
+    {
+        FindAnyObjectByType<PlayerController>().UpgradeStar();
     }
 }
