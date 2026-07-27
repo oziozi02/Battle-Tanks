@@ -23,6 +23,7 @@ public class StageManager : MonoBehaviour
     public void LoadStage(int index)
     {
         currentStageIndex = index;
+        EnemyTank.ResetFreezeState();
         levelLoader.LoadLevel(stages[index]);
         enemySpawner.ResetSpawner();
     }

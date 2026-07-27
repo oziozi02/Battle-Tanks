@@ -67,4 +67,13 @@ public class PowerUpManager : MonoBehaviour
     {
         FindAnyObjectByType<PlayerController>().UpgradeStar();
     }
+
+    public GameObject[] powerUpPrefabs; // In inspector
+
+    public void SpawnRandomPowerUp(Vector3 position)
+    {
+        if (powerUpPrefabs.Length == 0) return;
+        GameObject prefab = powerUpPrefabs[Random.Range(0, powerUpPrefabs.Length)];
+        Instantiate(prefab, position, Quaternion.identity);
+    }
 }

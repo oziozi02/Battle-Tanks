@@ -54,7 +54,8 @@ public class GameManager : MonoBehaviour
     {
         gameOverPanel.SetActive(false);
         gameEnded = false;
-        FindAnyObjectByType<PlayerHealth>().ResetPlayer();
+        PlayerHealth ph = FindAnyObjectByType<PlayerHealth>(FindObjectsInactive.Include);
+        if (ph != null) ph.ResetPlayer();
         StageManager.Instance.RetryStage();
     }
 

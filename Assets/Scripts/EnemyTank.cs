@@ -20,6 +20,11 @@ public class EnemyTank : MonoBehaviour
     private bool isFrozen = false;
     private static float globalFreezeUntil = 0f;
 
+    public static void ResetFreezeState()
+    {
+        globalFreezeUntil = 0f;
+    }
+
     public static void FreezeAll(float duration)
     {
         globalFreezeUntil = Time.time + duration;
@@ -47,16 +52,36 @@ public class EnemyTank : MonoBehaviour
         isFrozen = false;
     }
 
+    public bool dropsPowerUp = false;
+    private Color originalColor;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         maxHealth = health;
         ConfigureByType();
+        originalColor = sr.color;
         RotateToDirection();
         ApplyFreeze();
         StartCoroutine(ChangeDirection());
         StartCoroutine(Shoot());
+
+        if (dropsPowerUp)
+        {
+            StartCoroutine(FlashCoroutine());
+        }
+    }
+
+    IEnumerator FlashCoroutine()
+    {
+        while (true)
+        {
+            sr.color = Color.white;
+            yield return new WaitForSeconds(0.2f);
+            sr.color = originalColor;
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 
     void ConfigureByType()
@@ -96,6 +121,10 @@ public class EnemyTank : MonoBehaviour
 
         if (health <= 0)
         {
+            if (dropsPowerUp)
+            {
+                PowerUpManager.Instance.SpawnRandomPowerUp(transform.position);
+            }
             Destroy(gameObject);
             FindAnyObjectByType<EnemySpawner>().OnEnemyDestroyed();
         }
@@ -103,6 +132,10 @@ public class EnemyTank : MonoBehaviour
 
     public void InstantKill()
     {
+        if (dropsPowerUp)
+        {
+            PowerUpManager.Instance.SpawnRandomPowerUp(transform.position);
+        }
         Destroy(gameObject);
         FindAnyObjectByType<EnemySpawner>().OnEnemyDestroyed();
     }

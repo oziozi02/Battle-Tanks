@@ -45,6 +45,12 @@ public class EnemySpawner : MonoBehaviour
         GameObject prefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
 
         GameObject enemy = Instantiate(prefab, spawnPoint.position, Quaternion.identity);
+
+        EnemyTank enemyScript = enemy.GetComponent<EnemyTank>();
+        if (Random.value < 0.2f)
+        {
+            enemyScript.dropsPowerUp = true;
+        }
         activeEnemies.Add(enemy);
         enemiesSpawned++;
     }
