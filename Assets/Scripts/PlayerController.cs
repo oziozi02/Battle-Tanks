@@ -57,9 +57,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private bool onIce = false;
+    public float iceSpeedMultiplier = 1.8f;
+
+    public void SetOnIce(bool value)
+    {
+        onIce = value;
+    }
+
     void FixedUpdate()
     {
-        rb.linearVelocity = moveInput * moveSpeed;
+        float currentSpeed = onIce ? moveSpeed * iceSpeedMultiplier : moveSpeed;
+        rb.linearVelocity = moveInput * currentSpeed;
     }
 
     void Shoot()

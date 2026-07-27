@@ -65,6 +65,10 @@ public class Bullet : MonoBehaviour
         if (tilemapCollider != null)
         {
             Tilemap tilemap = tilemapCollider.GetComponent<Tilemap>();
+            if (tilemap != null && (tilemap.name == "WaterTilemap" || tilemap.name == "IceTilemap"))
+            {
+                return; // bullets pass through water harmlessly
+            }
             if (tilemap != null && (tilemap.name == "BrickTilemap" || (tilemap.name == "SteelTilemap" && canDestroySteel)))
             {
                 BoundsInt area = new BoundsInt(

@@ -140,6 +140,14 @@ public class EnemyTank : MonoBehaviour
         FindAnyObjectByType<EnemySpawner>().OnEnemyDestroyed();
     }
 
+    private bool onIce = false;
+    public float iceSpeedMultiplier = 1.8f;
+
+    public void SetOnIce(bool value)
+    {
+        onIce = value;
+    }
+
     void FixedUpdate()
     {
         if (isFrozen)
@@ -147,7 +155,8 @@ public class EnemyTank : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
             return;
         }
-        rb.linearVelocity = currentDirection * moveSpeed;
+        float currentSpeed = onIce ? moveSpeed * iceSpeedMultiplier : moveSpeed;
+        rb.linearVelocity = currentDirection * currentSpeed;
     }
 
     void RotateToDirection()

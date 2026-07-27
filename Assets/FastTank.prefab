@@ -82,7 +82,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: -120880159
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 5e43418fb4dade94598de22ecb17b24e, type: 3}
@@ -167,7 +167,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
 --- !u!114 &5715362923720982255
 MonoBehaviour:
@@ -188,6 +188,8 @@ MonoBehaviour:
   directionChangeInterval: 2
   bulletPrefab: {fileID: 4475320658342790986, guid: 0fb255050bdbb3a47ba389bbd20a7194, type: 3}
   barrelTip: {fileID: 4967899741881472117}
+  dropsPowerUp: 0
+  iceSpeedMultiplier: 1.8
 --- !u!1 &3502647423961271956
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,8 +268,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -120880159
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 8a959ca224d6de64696191d7806a017d, type: 3}
