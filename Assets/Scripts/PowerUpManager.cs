@@ -17,7 +17,7 @@ public class PowerUpManager : MonoBehaviour
                 ActivateGrenade();
                 break;
             case PowerUpType.Helmet:
-                Debug.Log("Helmet activated");
+                ActivateHelmet();
                 break;
             case PowerUpType.Shovel:
                 Debug.Log("Shovel activated");
@@ -26,7 +26,7 @@ public class PowerUpManager : MonoBehaviour
                 Debug.Log("Star activated");
                 break;
             case PowerUpType.Tank:
-                Debug.Log("Tank activated");
+                ActivateTank();
                 break;
             case PowerUpType.Timer:
                 ActivateTimer();
@@ -46,5 +46,15 @@ public class PowerUpManager : MonoBehaviour
     void ActivateTimer()
     {
         EnemyTank.FreezeAll(6f);
+    }
+
+    void ActivateTank()
+    {
+        FindAnyObjectByType<PlayerHealth>().AddLife();
+    }
+
+    void ActivateHelmet()
+    {
+        FindAnyObjectByType<PlayerHealth>().ActivateInvincibility(8f);
     }
 }
