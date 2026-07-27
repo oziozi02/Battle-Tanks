@@ -50,6 +50,14 @@ public class GameManager : MonoBehaviour
         StartCoroutine(WinSequence());
     }
 
+    public void Retry()
+    {
+        gameOverPanel.SetActive(false);
+        gameEnded = false;
+        FindObjectOfType<PlayerHealth>().ResetPlayer();
+        StageManager.Instance.RetryStage();
+    }
+
     IEnumerator WinSequence()
     {
         winPanel.SetActive(true);

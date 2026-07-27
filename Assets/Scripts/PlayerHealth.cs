@@ -3,6 +3,14 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     public int lives = 3;
+    private int startingLives;
+    private Vector3 startingPosition;
+
+    void Start()
+    {
+        startingLives = lives;
+        startingPosition = transform.position;
+    }
 
     public void TakeDamage()
     {
@@ -11,14 +19,20 @@ public class PlayerHealth : MonoBehaviour
 
         if (lives <= 0)
         {
-            Debug.Log("Game Over!");
             gameObject.SetActive(false);
             GameManager.Instance.GameOver("Out of lives!");
         }
         else
         {
-            // Reset position for now
-            transform.position = Vector3.zero;
+            transform.position = startingPosition;
         }
+    }
+
+    public void ResetPlayer()
+    {
+        lives = startingLives;
+        gameObject.SetActive(true);
+        transform.position = startingPosition;
+        GameManager.Instance.UpdateLivesUI(lives);
     }
 }
