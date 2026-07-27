@@ -20,7 +20,7 @@ public class PowerUpManager : MonoBehaviour
                 ActivateHelmet();
                 break;
             case PowerUpType.Shovel:
-                Debug.Log("Shovel activated");
+                ActivateShovel();
                 break;
             case PowerUpType.Star:
                 Debug.Log("Star activated");
@@ -56,5 +56,10 @@ public class PowerUpManager : MonoBehaviour
     void ActivateHelmet()
     {
         FindAnyObjectByType<PlayerHealth>().ActivateInvincibility(8f);
+    }
+
+    void ActivateShovel()
+    {
+        FindAnyObjectByType<LevelLoader>().ActivateShovel(15f);
     }
 }

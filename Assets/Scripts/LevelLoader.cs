@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -28,9 +29,14 @@ public class LevelLoader : MonoBehaviour
         new Vector2Int(-1, 1), new Vector2Int(0, 1), new Vector2Int(1, 1), new Vector2Int(2, 1),
         new Vector2Int(-1, 0), new Vector2Int(2, 0)
     };
+    private int currentLevelWidth;
+    private int currentLevelHeight;
 
     public void LoadLevel(LevelData level)
     {
+        currentLevelWidth = level.width;
+        currentLevelHeight = level.height;
+
         ClearAllTilemaps();
 
         int offsetX = -level.width / 2;
@@ -118,5 +124,42 @@ public class LevelLoader : MonoBehaviour
         waterTilemap.ClearAllTiles();
         treesTilemap.ClearAllTiles();
         iceTilemap.ClearAllTiles();
+    }
+
+    public void ActivateShovel(float duration)
+    {
+        StartCoroutine(ShovelCoroutine(duration));
+    }
+
+    IEnumerator ShovelCoroutine(float duration)
+    {
+        int offsetX = -currentLevelWidth / 2;
+        int offsetY = -currentLevelHeight / 2;
+
+        Vector3Int[] surroundPositions = new Vector3Int[eagleSurroundOffsets.Length];
+        for (int i = 0; i < eagleSurroundOffsets.Length; i++)
+        {
+            surroundPositions[i] = new Vector3Int(
+                fixedEaglePosition.x + eagleSurroundOffsets[i].x + offsetX,
+                fixedEaglePosition.y + eagleSurroundOffsets[i].y + offsetY,
+                0
+            );
+        }
+
+        // Swap to steel
+        foreach (var pos in surroundPositions)
+        {
+            brickTilemap.SetTile(pos, null);
+            steelTilemap.SetTile(pos, steelTile);
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        // Swap back to brick
+        foreach (var pos in surroundPositions)
+        {
+            steelTilemap.SetTile(pos, null);
+            brickTilemap.SetTile(pos, brickTile);
+        }
     }
 }
