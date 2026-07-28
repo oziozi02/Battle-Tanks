@@ -8,6 +8,11 @@ public class PlayerHealth : MonoBehaviour
     private Vector3 startingPosition;
     private bool isInvincible = false;
 
+    void Awake()
+    {
+        startingPosition = transform.position;
+    }
+
     void Start()
     {
         Difficulty diff = (Difficulty)PlayerPrefs.GetInt("Difficulty", 0);
@@ -16,7 +21,6 @@ public class PlayerHealth : MonoBehaviour
         else lives = 1;
 
         startingLives = lives;
-        startingPosition = transform.position;
 
         GameManager.Instance.UpdateLivesUI(playerIndex, lives);
     }
@@ -74,5 +78,13 @@ public class PlayerHealth : MonoBehaviour
 
         PlayerController pc = GetComponent<PlayerController>();
         if (pc != null) pc.ResetStarLevel();
+    }
+
+    public void RepositionToStart()
+    {
+        if (gameObject.activeSelf)
+        {
+            transform.position = startingPosition;
+        }
     }
 }
