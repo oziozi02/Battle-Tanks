@@ -10,8 +10,15 @@ public class PlayerHealth : MonoBehaviour
 
     void Start()
     {
+        Difficulty diff = (Difficulty)PlayerPrefs.GetInt("Difficulty", 0);
+
+        if (diff == Difficulty.Easy) lives = 3;
+        else lives = 1;
+
         startingLives = lives;
         startingPosition = transform.position;
+
+        GameManager.Instance.UpdateLivesUI(playerIndex, lives);
     }
 
     public void TakeDamage()

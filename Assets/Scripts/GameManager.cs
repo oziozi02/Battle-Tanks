@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverPanel;
     public GameObject winPanel;
     public TextMeshProUGUI gameOverReasonText;
+    public GameObject retryButton;
 
     public bool twoPlayerMode = false;
     private bool player1Defeated = false;
@@ -68,8 +69,25 @@ public class GameManager : MonoBehaviour
 
         if (shouldEndGame)
         {
-            GameOver("Out of lives!");
+            Difficulty diff = (Difficulty)PlayerPrefs.GetInt("Difficulty", 0);
+            if (diff == Difficulty.Hardcore)
+            {
+                GameOverHardcore();
+            }
+            else
+            {
+                GameOver("Out of lives!");
+            }
         }
+    }
+
+    void GameOverHardcore()
+    {
+        if (gameEnded) return;
+        gameEnded = true;
+        gameOverPanel.SetActive(true);
+        gameOverReasonText.text = "Run over! No retries in Hardcore.";
+        retryButton.SetActive(false); // hide retry, only main menu option remains
     }
 
     public void GameOver(string reason)
@@ -78,6 +96,13 @@ public class GameManager : MonoBehaviour
         gameEnded = true;
         gameOverPanel.SetActive(true);
         gameOverReasonText.text = reason;
+        retryButton.SetActive(true);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        Time.timeScale = 1f; // just in case, though we don't freeze time currently
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 
     void WinGame()
