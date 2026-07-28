@@ -3,9 +3,16 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public void PlayGame()
+    public void PlayOnePlayer()
     {
-        SceneManager.LoadScene("GameScene"); // adjust to match your actual gameplay scene name
+        PlayerPrefs.SetInt("TwoPlayerMode", 0);
+        SceneManager.LoadScene("GameScene");
+    }
+
+    public void PlayTwoPlayer()
+    {
+        PlayerPrefs.SetInt("TwoPlayerMode", 1);
+        SceneManager.LoadScene("GameScene");
     }
 
     public void OpenConstructor()

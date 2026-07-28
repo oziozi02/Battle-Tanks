@@ -30,6 +30,17 @@ public class Bullet : MonoBehaviour
     {
         if (hasHit) return;
 
+        // Check for water/ice pass-through FIRST, before setting hasHit
+        TilemapCollider2D tilemapCollider = other.GetComponent<TilemapCollider2D>();
+        if (tilemapCollider != null)
+        {
+            Tilemap tilemap = tilemapCollider.GetComponent<Tilemap>();
+            if (tilemap != null && (tilemap.name == "WaterTilemap" || tilemap.name == "IceTilemap"))
+            {
+                return; // bullets pass through water and ice harmlessly, hasHit stays false
+            }
+        }
+
         // Ignore bullets hitting their own side
         if (owner == OwnerType.Player && other.GetComponent<EnemyTank>() == null && other.CompareTag("Player"))
             return;
@@ -60,15 +71,10 @@ public class Bullet : MonoBehaviour
             }
         }
 
-        // Brick destruction (unchanged)
-        TilemapCollider2D tilemapCollider = other.GetComponent<TilemapCollider2D>();
+        // Brick/Steel destruction
         if (tilemapCollider != null)
         {
             Tilemap tilemap = tilemapCollider.GetComponent<Tilemap>();
-            if (tilemap != null && (tilemap.name == "WaterTilemap" || tilemap.name == "IceTilemap"))
-            {
-                return; // bullets pass through water harmlessly
-            }
             if (tilemap != null && (tilemap.name == "BrickTilemap" || (tilemap.name == "SteelTilemap" && canDestroySteel)))
             {
                 BoundsInt area = new BoundsInt(
@@ -103,7 +109,6 @@ public class Bullet : MonoBehaviour
                     tilemap.SetTile(bestTile, null);
                 }
             }
-
         }
 
         Destroy(gameObject);

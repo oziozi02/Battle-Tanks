@@ -1,8 +1,8 @@
-using System.Collections;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
+    public int playerIndex = 1;
     public int lives = 3;
     private int startingLives;
     private Vector3 startingPosition;
@@ -19,12 +19,12 @@ public class PlayerHealth : MonoBehaviour
         if (isInvincible) return;
 
         lives--;
-        GameManager.Instance.UpdateLivesUI(lives);
+        GameManager.Instance.UpdateLivesUI(playerIndex, lives);
 
         if (lives <= 0)
         {
             gameObject.SetActive(false);
-            GameManager.Instance.GameOver("Out of lives!");
+            GameManager.Instance.OnPlayerDefeated(playerIndex);
         }
         else
         {
@@ -32,21 +32,10 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    public void ResetPlayer()
-    {
-        lives = startingLives;
-        gameObject.SetActive(true);
-        transform.position = startingPosition;
-        GameManager.Instance.UpdateLivesUI(lives);
-
-        PlayerController pc = GetComponent<PlayerController>();
-        if (pc != null) pc.ResetStarLevel();
-    }
-
     public void AddLife()
     {
         lives++;
-        GameManager.Instance.UpdateLivesUI(lives);
+        GameManager.Instance.UpdateLivesUI(playerIndex, lives);
     }
 
     public void ActivateInvincibility(float duration)
@@ -54,11 +43,9 @@ public class PlayerHealth : MonoBehaviour
         StartCoroutine(InvincibilityCoroutine(duration));
     }
 
-    IEnumerator InvincibilityCoroutine(float duration)
+    System.Collections.IEnumerator InvincibilityCoroutine(float duration)
     {
         isInvincible = true;
-
-        // Flashing visual effect
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         float elapsed = 0f;
         while (elapsed < duration)
@@ -68,7 +55,17 @@ public class PlayerHealth : MonoBehaviour
             elapsed += 0.1f;
         }
         sr.enabled = true;
-
         isInvincible = false;
+    }
+
+    public void ResetPlayer()
+    {
+        lives = startingLives;
+        gameObject.SetActive(true);
+        transform.position = startingPosition;
+        GameManager.Instance.UpdateLivesUI(playerIndex, lives);
+
+        PlayerController pc = GetComponent<PlayerController>();
+        if (pc != null) pc.ResetStarLevel();
     }
 }
