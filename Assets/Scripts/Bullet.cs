@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
     public enum OwnerType { Player, Enemy }
     public OwnerType owner;
     public bool canDestroySteel = false;
+    public int playerIndex = 1;
 
     public float speed = 10f;
     private Vector2 direction;
@@ -65,7 +66,7 @@ public class Bullet : MonoBehaviour
             EnemyTank enemy = other.GetComponent<EnemyTank>();
             if (enemy != null)
             {
-                enemy.TakeDamage();
+                enemy.TakeDamage(playerIndex);
                 Destroy(gameObject);
                 return;
             }

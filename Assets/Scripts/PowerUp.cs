@@ -19,6 +19,9 @@ public class PowerUp : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PowerUpManager.Instance.ActivatePowerUp(type);
+            PlayerController pc = other.GetComponent<PlayerController>();
+            int idx = pc != null ? pc.playerIndex : 1;
+            ScoreManager.Instance.RegisterPowerUp(idx);
             Destroy(gameObject);
         }
     }

@@ -107,6 +107,7 @@ public class PlayerController : MonoBehaviour
         Bullet b = bullet.GetComponent<Bullet>();
         b.SetDirection(lastDirection);
         b.SetOwner(Bullet.OwnerType.Player);
+        b.playerIndex = playerIndex;
 
         if (starLevel >= 1) b.speed = 15f;
         if (starLevel >= 3) b.canDestroySteel = true;

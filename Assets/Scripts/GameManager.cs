@@ -14,6 +14,11 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverReasonText;
     public GameObject retryButton;
 
+    public GameObject tallyPanel;
+    public GameObject tallyP2Section; // container for P2's column, hidden in 1P mode
+    public TextMeshProUGUI[] tallyTextsP1; // Basic, Fast, Power, Armor, Total (5 elements)
+    public TextMeshProUGUI[] tallyTextsP2;
+
     public bool twoPlayerMode = false;
     private bool player1Defeated = false;
     private bool player2Defeated = false;
@@ -117,8 +122,44 @@ public class GameManager : MonoBehaviour
         winPanel.SetActive(true);
         yield return new WaitForSecondsRealtime(2f);
         winPanel.SetActive(false);
+
+        ShowTally();
+        yield return new WaitForSecondsRealtime(8f);
+        tallyPanel.SetActive(false);
+
         gameEnded = false;
         StageManager.Instance.NextStage();
+        ScoreManager.Instance.ResetTally();
+    }
+
+    void ShowTally()
+    {
+        tallyPanel.SetActive(true);
+        PopulateTally(1, tallyTextsP1);
+
+        if (twoPlayerMode)
+        {
+            tallyP2Section.SetActive(true);
+            PopulateTally(2, tallyTextsP2);
+        }
+        else
+        {
+            tallyP2Section.SetActive(false);
+        }
+    }
+
+    void PopulateTally(int playerIndex, TextMeshProUGUI[] texts)
+    {
+        var types = new EnemyTank.TankType[] { EnemyTank.TankType.Basic, EnemyTank.TankType.Fast, EnemyTank.TankType.Power, EnemyTank.TankType.Armor };
+        int[] points = { 100, 200, 300, 400 };
+
+        for (int i = 0; i < types.Length; i++)
+        {
+            int count = ScoreManager.Instance.GetKillCount(playerIndex, types[i]);
+            texts[i].text = types[i] + " x" + count + " = " + (count * points[i]);
+        }
+
+        texts[4].text = "Total: " + ScoreManager.Instance.GetScore(playerIndex);
     }
 
     public void Retry()
