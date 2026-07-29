@@ -39,7 +39,8 @@ public class StageManager : MonoBehaviour
         currentStageIndex++;
         if (currentStageIndex >= stages.Length)
         {
-            currentStageIndex = 0; // loop back, or handle "game complete" separately
+            GameManager.Instance.ShowGameComplete();
+            return;
         }
         LoadStage(currentStageIndex);
     }

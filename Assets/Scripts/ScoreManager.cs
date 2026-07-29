@@ -5,11 +5,13 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
     public GameObject scorePopupPrefab;
+    public int retryPenalty = 1000;
 
     private Dictionary<EnemyTank.TankType, int> killsP1 = new Dictionary<EnemyTank.TankType, int>();
     private Dictionary<EnemyTank.TankType, int> killsP2 = new Dictionary<EnemyTank.TankType, int>();
     private int scoreP1 = 0;
     private int scoreP2 = 0;
+    private int cumulativeTotal = 0;
 
     void Awake()
     {
@@ -43,6 +45,7 @@ public class ScoreManager : MonoBehaviour
             killsP2[type]++;
             scoreP2 += points;
         }
+        cumulativeTotal += points;
         SpawnPopup(points, position);
     }
 
@@ -50,6 +53,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (playerIndex == 1) scoreP1 += 500;
         else scoreP2 += 500;
+        cumulativeTotal += 500;
         SpawnPopup(500, position);
     }
 
@@ -81,5 +85,17 @@ public class ScoreManager : MonoBehaviour
     public int GetScore(int playerIndex)
     {
         return playerIndex == 1 ? scoreP1 : scoreP2;
+    }
+
+    public int GetCumulativeTotal() => cumulativeTotal;
+
+    public void ApplyRetryPenalty()
+    {
+        cumulativeTotal = Mathf.Max(0, cumulativeTotal - retryPenalty);
+    }
+
+    public void ResetCumulativeTotal()
+    {
+        cumulativeTotal = 0;
     }
 }

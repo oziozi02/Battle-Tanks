@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour
     public GameObject tallyP2Section; // container for P2's column, hidden in 1P mode
     public TextMeshProUGUI[] tallyTextsP1; // Basic, Fast, Power, Armor, Total (5 elements)
     public TextMeshProUGUI[] tallyTextsP2;
+    public TextMeshProUGUI tallyGrandTotalText;
+    public GameObject gameCompletePanel;
+    public TextMeshProUGUI gameCompleteScoreText;
 
     public bool twoPlayerMode = false;
     private bool player1Defeated = false;
@@ -107,6 +110,7 @@ public class GameManager : MonoBehaviour
     public void ReturnToMainMenu()
     {
         Time.timeScale = 1f; // just in case, though we don't freeze time currently
+        ScoreManager.Instance.ResetCumulativeTotal();
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 
@@ -146,6 +150,7 @@ public class GameManager : MonoBehaviour
         {
             tallyP2Section.SetActive(false);
         }
+        tallyGrandTotalText.text = "Total Points: " + ScoreManager.Instance.GetCumulativeTotal();
     }
 
     void PopulateTally(int playerIndex, TextMeshProUGUI[] texts)
@@ -169,6 +174,8 @@ public class GameManager : MonoBehaviour
         player1Defeated = false;
         player2Defeated = false;
 
+        ScoreManager.Instance.ApplyRetryPenalty();
+
         PlayerHealth[] allPlayers = FindObjectsByType<PlayerHealth>(FindObjectsInactive.Include);
         foreach (var p in allPlayers)
         {
@@ -177,5 +184,18 @@ public class GameManager : MonoBehaviour
         }
 
         StageManager.Instance.RetryStage();
+    }
+
+    public void ShowGameComplete()
+    {
+        gameCompletePanel.SetActive(true);
+        gameCompleteScoreText.text = "Final Score: " + ScoreManager.Instance.GetCumulativeTotal();
+    }
+
+    public void GameCompleteReturnToMenu()
+    {
+        gameCompletePanel.SetActive(false);
+        ScoreManager.Instance.ResetCumulativeTotal();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 }
