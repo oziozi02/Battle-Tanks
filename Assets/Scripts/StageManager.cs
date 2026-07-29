@@ -26,6 +26,7 @@ public class StageManager : MonoBehaviour
         EnemyTank.ResetFreezeState();
         levelLoader.LoadLevel(stages[index]);
         enemySpawner.ResetSpawner();
+        GameManager.Instance.UpdateStageUI(index + 1);
 
         PlayerHealth[] allPlayers = FindObjectsByType<PlayerHealth>(FindObjectsInactive.Include);
         foreach (var p in allPlayers)

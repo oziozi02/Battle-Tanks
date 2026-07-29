@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI tallyGrandTotalText;
     public GameObject gameCompletePanel;
     public TextMeshProUGUI gameCompleteScoreText;
+    public TextMeshProUGUI gameOverScoreText;
+    public TextMeshProUGUI stageText;
 
     public bool twoPlayerMode = false;
     private bool player1Defeated = false;
@@ -95,7 +97,9 @@ public class GameManager : MonoBehaviour
         gameEnded = true;
         gameOverPanel.SetActive(true);
         gameOverReasonText.text = "Run over! No retries in Hardcore.";
+        gameOverScoreText.text = "Score: " + ScoreManager.Instance.GetCumulativeTotal();
         retryButton.SetActive(false); // hide retry, only main menu option remains
+        Time.timeScale = 0f;
     }
 
     public void GameOver(string reason)
@@ -104,12 +108,14 @@ public class GameManager : MonoBehaviour
         gameEnded = true;
         gameOverPanel.SetActive(true);
         gameOverReasonText.text = reason;
+        gameOverScoreText.text = "Score: " + ScoreManager.Instance.GetCumulativeTotal();
         retryButton.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public void ReturnToMainMenu()
     {
-        Time.timeScale = 1f; // just in case, though we don't freeze time currently
+        Time.timeScale = 1f;
         ScoreManager.Instance.ResetCumulativeTotal();
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
@@ -169,6 +175,7 @@ public class GameManager : MonoBehaviour
 
     public void Retry()
     {
+        Time.timeScale = 1f;
         gameOverPanel.SetActive(false);
         gameEnded = false;
         player1Defeated = false;
@@ -197,5 +204,10 @@ public class GameManager : MonoBehaviour
         gameCompletePanel.SetActive(false);
         ScoreManager.Instance.ResetCumulativeTotal();
         UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
+
+    public void UpdateStageUI(int stageNumber)
+    {
+        stageText.text = "Stage " + stageNumber;
     }
 }
