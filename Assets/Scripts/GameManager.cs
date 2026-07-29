@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,11 +24,13 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameCompleteScoreText;
     public TextMeshProUGUI gameOverScoreText;
     public TextMeshProUGUI stageText;
+    public GameObject pausePanel;
 
     public bool twoPlayerMode = false;
     private bool player1Defeated = false;
     private bool player2Defeated = false;
     private bool gameEnded = false;
+    private bool isPaused = false;
 
     void Awake()
     {
@@ -213,5 +216,35 @@ public class GameManager : MonoBehaviour
     public void UpdateStageUI(int stageNumber)
     {
         stageText.text = "Stage " + stageNumber;
+    }
+
+    void Update()
+    {
+        if (Keyboard.current.escapeKey.wasPressedThisFrame && !gameEnded)
+        {
+            TogglePause();
+        }
+    }
+
+    public void TogglePause()
+    {
+        isPaused = !isPaused;
+        pausePanel.SetActive(isPaused);
+        Time.timeScale = isPaused ? 0f : 1f;
+    }
+
+    public void ResumeGame()
+    {
+        isPaused = false;
+        pausePanel.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
+    public void PauseMainMenu()
+    {
+        Time.timeScale = 1f;
+        ScoreManager.Instance.CheckAndSaveHighScore();
+        ScoreManager.Instance.ResetCumulativeTotal();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
 }

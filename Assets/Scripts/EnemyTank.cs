@@ -173,6 +173,7 @@ public class EnemyTank : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0f) return;
         if (isFrozen) return;
 
         if (Vector2.Distance(rb.position, lastPosition) < 0.01f)
@@ -217,6 +218,7 @@ public class EnemyTank : MonoBehaviour
         {
             yield return new WaitForSeconds(directionChangeInterval);
             if (isFrozen) continue;
+            if (Time.timeScale == 0f) continue;
 
             Vector2[] directions = { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
             currentDirection = directions[Random.Range(0, directions.Length)];
