@@ -87,6 +87,7 @@ public class Bullet : MonoBehaviour
                 float bestScore = float.MaxValue;
                 bool found = false;
 
+                // First pass: only tiles in front of bullet direction
                 foreach (Vector3Int pos in area.allPositionsWithin)
                 {
                     if (tilemap.GetTile(pos) != null)
@@ -101,6 +102,26 @@ public class Bullet : MonoBehaviour
                             bestScore = distance;
                             bestTile = pos;
                             found = true;
+                        }
+                    }
+                }
+
+                // Fallback: if nothing found in front (point-blank case), just take the closest tile overall
+                if (!found)
+                {
+                    bestScore = float.MaxValue;
+                    foreach (Vector3Int pos in area.allPositionsWithin)
+                    {
+                        if (tilemap.GetTile(pos) != null)
+                        {
+                            Vector3 tileCenter = tilemap.GetCellCenterWorld(pos);
+                            float distance = Vector3.Distance(tileCenter, transform.position);
+                            if (distance < bestScore)
+                            {
+                                bestScore = distance;
+                                bestTile = pos;
+                                found = true;
+                            }
                         }
                     }
                 }

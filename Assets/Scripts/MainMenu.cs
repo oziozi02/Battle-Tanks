@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,12 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject playerCountPanel;
     public GameObject difficultyPanel;
+    public TextMeshProUGUI highScoreText;
+
+    void Start()
+    {
+        highScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore", 0);
+    }
 
     public void SelectOnePlayer()
     {

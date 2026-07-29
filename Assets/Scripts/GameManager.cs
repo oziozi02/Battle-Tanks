@@ -95,6 +95,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameEnded) return;
         gameEnded = true;
+        ScoreManager.Instance.CheckAndSaveHighScore();
         gameOverPanel.SetActive(true);
         gameOverReasonText.text = "Run over! No retries in Hardcore.";
         gameOverScoreText.text = "Score: " + ScoreManager.Instance.GetCumulativeTotal();
@@ -106,6 +107,7 @@ public class GameManager : MonoBehaviour
     {
         if (gameEnded) return;
         gameEnded = true;
+        ScoreManager.Instance.CheckAndSaveHighScore();
         gameOverPanel.SetActive(true);
         gameOverReasonText.text = reason;
         gameOverScoreText.text = "Score: " + ScoreManager.Instance.GetCumulativeTotal();
@@ -176,6 +178,7 @@ public class GameManager : MonoBehaviour
     public void Retry()
     {
         Time.timeScale = 1f;
+        ScoreManager.Instance.CheckAndSaveHighScore();
         gameOverPanel.SetActive(false);
         gameEnded = false;
         player1Defeated = false;
@@ -195,6 +198,7 @@ public class GameManager : MonoBehaviour
 
     public void ShowGameComplete()
     {
+        ScoreManager.Instance.CheckAndSaveHighScore();
         gameCompletePanel.SetActive(true);
         gameCompleteScoreText.text = "Final Score: " + ScoreManager.Instance.GetCumulativeTotal();
     }

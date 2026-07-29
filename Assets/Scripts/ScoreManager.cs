@@ -98,4 +98,19 @@ public class ScoreManager : MonoBehaviour
     {
         cumulativeTotal = 0;
     }
+
+    public int GetHighScore()
+    {
+        return PlayerPrefs.GetInt("HighScore", 0);
+    }
+
+    public void CheckAndSaveHighScore()
+    {
+        int currentHigh = GetHighScore();
+        if (cumulativeTotal > currentHigh)
+        {
+            PlayerPrefs.SetInt("HighScore", cumulativeTotal);
+            PlayerPrefs.Save();
+        }
+    }
 }
