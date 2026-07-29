@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
+    public GameObject scorePopupPrefab;
 
     private Dictionary<EnemyTank.TankType, int> killsP1 = new Dictionary<EnemyTank.TankType, int>();
     private Dictionary<EnemyTank.TankType, int> killsP2 = new Dictionary<EnemyTank.TankType, int>();
@@ -29,7 +30,7 @@ public class ScoreManager : MonoBehaviour
         scoreP2 = 0;
     }
 
-    public void RegisterKill(EnemyTank.TankType type, int playerIndex)
+    public void RegisterKill(EnemyTank.TankType type, int playerIndex, Vector3 position)
     {
         int points = GetPointsForType(type);
         if (playerIndex == 1)
@@ -42,12 +43,22 @@ public class ScoreManager : MonoBehaviour
             killsP2[type]++;
             scoreP2 += points;
         }
+        SpawnPopup(points, position);
     }
 
-    public void RegisterPowerUp(int playerIndex)
+    public void RegisterPowerUp(int playerIndex, Vector3 position)
     {
         if (playerIndex == 1) scoreP1 += 500;
         else scoreP2 += 500;
+        SpawnPopup(500, position);
+    }
+
+    void SpawnPopup(int points, Vector3 position)
+    {
+        Debug.Log("Spawning popup at: " + position);
+        if (scorePopupPrefab == null) return;
+        GameObject popup = Instantiate(scorePopupPrefab, position, Quaternion.identity);
+        popup.GetComponent<ScorePopup>().SetText(points.ToString());
     }
 
     int GetPointsForType(EnemyTank.TankType type)

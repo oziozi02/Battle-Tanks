@@ -121,7 +121,7 @@ public class EnemyTank : MonoBehaviour
 
         if (health <= 0)
         {
-            ScoreManager.Instance.RegisterKill(tankType, killerPlayerIndex);
+            ScoreManager.Instance.RegisterKill(tankType, killerPlayerIndex, transform.position);
             if (dropsPowerUp)
             {
                 PowerUpManager.Instance.SpawnRandomPowerUp(transform.position);
@@ -133,7 +133,7 @@ public class EnemyTank : MonoBehaviour
 
     public void InstantKill()
     {
-        ScoreManager.Instance.RegisterKill(tankType, 1);
+        ScoreManager.Instance.RegisterKill(tankType, 1, transform.position);
         if (dropsPowerUp)
         {
             PowerUpManager.Instance.SpawnRandomPowerUp(transform.position);

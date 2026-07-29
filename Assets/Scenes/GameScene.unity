@@ -366,7 +366,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 8a959ca224d6de64696191d7806a017d, type: 3}
-  m_Color: {r: 0.12941177, g: 0.5882353, b: 0.9529412, a: 1}
+  m_Color: {r: 0.9529412, g: 0.69281113, b: 0.12941174, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2155,6 +2155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c4690898e41644681a39186e42ea60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
+  scorePopupPrefab: {fileID: 3689088371912966858, guid: 5a3ccc195ab12f84483c8a9b66190367, type: 3}
 --- !u!4 &757070018
 Transform:
   m_ObjectHideFlags: 0
