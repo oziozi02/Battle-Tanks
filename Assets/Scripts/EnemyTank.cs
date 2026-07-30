@@ -77,10 +77,10 @@ public class EnemyTank : MonoBehaviour
     {
         while (true)
         {
-            sr.color = Color.white;
-            yield return new WaitForSeconds(0.2f);
-            sr.color = originalColor;
-            yield return new WaitForSeconds(0.2f);
+            sr.enabled = false;
+            yield return new WaitForSeconds(0.15f);
+            sr.enabled = true;
+            yield return new WaitForSeconds(0.15f);
         }
     }
 
