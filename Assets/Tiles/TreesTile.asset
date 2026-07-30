@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: TreesTile
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
-  m_Sprite: {fileID: 7482667652216324306, guid: d5ab33fcb8b01a14ba09d85c4cffdb05, type: 3}
-  m_Color: {r: 0.18039216, g: 0.49019608, b: 0.19607843, a: 1}
+  m_Sprite: {fileID: 5272981105008981850, guid: efad673f22dfd474d9b44afb399a8f56, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0

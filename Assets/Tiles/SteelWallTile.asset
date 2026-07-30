@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: SteelWallTile
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
-  m_Sprite: {fileID: 7482667652216324306, guid: 5834db4455801d0439d970d7d5f24a2c, type: 3}
-  m_Color: {r: 0.47058824, g: 0.5647059, b: 0.6117647, a: 1}
+  m_Sprite: {fileID: 2259815273647649725, guid: cf44301a789d1c64f98f0dfe8940f5ba, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0

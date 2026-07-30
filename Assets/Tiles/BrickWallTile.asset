@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: BrickWallTile
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
-  m_Sprite: {fileID: 7482667652216324306, guid: 7d6e3255835ba6d42bf1b21d9d6fa969, type: 3}
-  m_Color: {r: 0.7490196, g: 0.36078432, b: 0.22745098, a: 1}
+  m_Sprite: {fileID: -5989174443052425803, guid: 20b2caa63f3ac62409614f9ed6388e79, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0

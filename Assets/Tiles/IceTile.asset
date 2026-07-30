@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: IceTile
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
-  m_Sprite: {fileID: 7482667652216324306, guid: 3ec584ddf8d3d7540b55b600ac752cab, type: 3}
-  m_Color: {r: 0.69803923, g: 0.92156863, b: 0.9490196, a: 1}
+  m_Sprite: {fileID: -6257225237227003888, guid: 795c0ea3781d8e84c80aa2e4d5765315, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
     e01: 0
