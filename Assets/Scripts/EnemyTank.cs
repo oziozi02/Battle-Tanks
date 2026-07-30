@@ -90,19 +90,15 @@ public class EnemyTank : MonoBehaviour
         {
             case TankType.Basic:
                 moveSpeed = 2f; bulletSpeed = 8f; health = 1;
-                sr.color = new Color(0.937f, 0.325f, 0.314f); // red
                 break;
             case TankType.Fast:
                 moveSpeed = 4f; bulletSpeed = 10f; health = 1;
-                sr.color = new Color(1f, 0.439f, 0.263f); // orange
                 break;
             case TankType.Power:
                 moveSpeed = 2.5f; bulletSpeed = 14f; health = 1;
-                sr.color = new Color(0.671f, 0.278f, 0.737f); // purple
                 break;
             case TankType.Armor:
                 moveSpeed = 2.5f; bulletSpeed = 10f; health = 4;
-                sr.color = new Color(0.4f, 0.733f, 0.416f); // green
                 break;
         }
         maxHealth = health;
