@@ -25,6 +25,10 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         GetComponent<Rigidbody2D>().linearVelocity = direction * speed;
+
+        // Rotate sprite to face travel direction (sprite's default "up" orientation assumed)
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     void OnTriggerEnter2D(Collider2D other)
