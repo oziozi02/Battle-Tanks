@@ -118,6 +118,7 @@ public class EnemyTank : MonoBehaviour
         if (health <= 0)
         {
             ScoreManager.Instance.RegisterKill(tankType, killerPlayerIndex, transform.position);
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.tankDestroyed);
             if (dropsPowerUp)
             {
                 PowerUpManager.Instance.SpawnRandomPowerUp(transform.position);

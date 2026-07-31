@@ -51,6 +51,7 @@ public class GameManager : MonoBehaviour
         {
             livesTextP2.gameObject.SetActive(twoPlayerMode);
         }
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.gameplayMusic);
     }
 
     public void UpdateLivesUI(int playerIndex, int lives)
@@ -103,6 +104,7 @@ public class GameManager : MonoBehaviour
         gameOverReasonText.text = "Run over! No retries in Hardcore.";
         gameOverScoreText.text = "Score: " + ScoreManager.Instance.GetCumulativeTotal();
         retryButton.SetActive(false); // hide retry, only main menu option remains
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.gameOver);
         Time.timeScale = 0f;
     }
 
@@ -115,6 +117,7 @@ public class GameManager : MonoBehaviour
         gameOverReasonText.text = reason;
         gameOverScoreText.text = "Score: " + ScoreManager.Instance.GetCumulativeTotal();
         retryButton.SetActive(true);
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.gameOver);
         Time.timeScale = 0f;
     }
 
@@ -135,6 +138,7 @@ public class GameManager : MonoBehaviour
     IEnumerator WinSequence()
     {
         winPanel.SetActive(true);
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.stageClear);
         yield return new WaitForSecondsRealtime(2f);
         winPanel.SetActive(false);
 
@@ -204,6 +208,7 @@ public class GameManager : MonoBehaviour
         ScoreManager.Instance.CheckAndSaveHighScore();
         gameCompletePanel.SetActive(true);
         gameCompleteScoreText.text = "Final Score: " + ScoreManager.Instance.GetCumulativeTotal();
+        AudioManager.Instance.PlayJingle(AudioManager.Instance.gameCompleteJingle);
     }
 
     public void GameCompleteReturnToMenu()
@@ -230,6 +235,7 @@ public class GameManager : MonoBehaviour
     {
         isPaused = !isPaused;
         pausePanel.SetActive(isPaused);
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.pauseToggle);
         Time.timeScale = isPaused ? 0f : 1f;
     }
 

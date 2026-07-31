@@ -113,6 +113,7 @@ public class PlayerController : MonoBehaviour
         if (starLevel >= 3) b.canDestroySteel = true;
 
         Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerShoot);
     }
 
     IEnumerator ShootCooldown()

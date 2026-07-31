@@ -75,5 +75,6 @@ public class PowerUpManager : MonoBehaviour
         if (powerUpPrefabs.Length == 0) return;
         GameObject prefab = powerUpPrefabs[Random.Range(0, powerUpPrefabs.Length)];
         Instantiate(prefab, position, Quaternion.identity);
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.powerUpAppear);
     }
 }

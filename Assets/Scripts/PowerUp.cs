@@ -56,6 +56,7 @@ public class PowerUp : MonoBehaviour
             PlayerController pc = other.GetComponent<PlayerController>();
             int idx = pc != null ? pc.playerIndex : 1;
             ScoreManager.Instance.RegisterPowerUp(idx, transform.position);
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.powerUpPickup);
             Destroy(gameObject);
         }
     }

@@ -9,6 +9,7 @@ public class Eagle : MonoBehaviour
         Bullet bullet = other.GetComponent<Bullet>();
         if (bullet != null)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.eagleDestroyed);
             SpriteRenderer sr = GetComponent<SpriteRenderer>();
             if (sr != null && destroyedSprite != null)
             {

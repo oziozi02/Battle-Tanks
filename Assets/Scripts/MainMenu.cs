@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         highScoreText.text = "High Score: " + PlayerPrefs.GetInt("HighScore", 0);
+        AudioManager.Instance.PlayMusic(AudioManager.Instance.menuMusic);
     }
 
     public void SelectOnePlayer()

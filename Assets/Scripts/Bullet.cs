@@ -61,6 +61,7 @@ public class Bullet : MonoBehaviour
             if (player != null)
             {
                 player.TakeDamage();
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.bulletImpact);
             }
         }
 
@@ -71,6 +72,7 @@ public class Bullet : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(playerIndex);
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.bulletImpact);
                 Destroy(gameObject);
                 return;
             }
@@ -82,49 +84,58 @@ public class Bullet : MonoBehaviour
             Tilemap tilemap = tilemapCollider.GetComponent<Tilemap>();
             if (tilemap != null && (tilemap.name == "BrickTilemap" || (tilemap.name == "SteelTilemap" && canDestroySteel)))
             {
-                BoundsInt area = new BoundsInt(
-                    tilemap.WorldToCell(transform.position) - new Vector3Int(1, 1, 0),
-                    new Vector3Int(3, 3, 1)
-                );
-
-                Vector3Int bestTile = Vector3Int.zero;
-                float bestScore = float.MaxValue;
+                Vector3Int currentCell = tilemap.WorldToCell(transform.position);
                 bool found = false;
+                Vector3Int bestTile = Vector3Int.zero;
 
-                // First pass: only tiles in front of bullet direction
-                foreach (Vector3Int pos in area.allPositionsWithin)
+                // Priority check: is the bullet already inside/overlapping a valid tile?
+                if (tilemap.GetTile(currentCell) != null)
                 {
-                    if (tilemap.GetTile(pos) != null)
-                    {
-                        Vector3 tileCenter = tilemap.GetCellCenterWorld(pos);
-                        Vector3 toTile = tileCenter - transform.position;
-                        float dot = Vector2.Dot(direction, new Vector2(toTile.x, toTile.y));
-                        float distance = Vector3.Distance(tileCenter, transform.position);
-
-                        if (dot >= 0 && distance < bestScore)
-                        {
-                            bestScore = distance;
-                            bestTile = pos;
-                            found = true;
-                        }
-                    }
+                    bestTile = currentCell;
+                    found = true;
                 }
-
-                // Fallback: if nothing found in front (point-blank case), just take the closest tile overall
-                if (!found)
+                else
                 {
-                    bestScore = float.MaxValue;
+                    BoundsInt area = new BoundsInt(
+                        currentCell - new Vector3Int(1, 1, 0),
+                        new Vector3Int(3, 3, 1)
+                    );
+
+                    float bestScore = float.MaxValue;
+
                     foreach (Vector3Int pos in area.allPositionsWithin)
                     {
                         if (tilemap.GetTile(pos) != null)
                         {
                             Vector3 tileCenter = tilemap.GetCellCenterWorld(pos);
+                            Vector3 toTile = tileCenter - transform.position;
+                            float dot = Vector2.Dot(direction, new Vector2(toTile.x, toTile.y));
                             float distance = Vector3.Distance(tileCenter, transform.position);
-                            if (distance < bestScore)
+
+                            if (dot >= 0 && distance < bestScore)
                             {
                                 bestScore = distance;
                                 bestTile = pos;
                                 found = true;
+                            }
+                        }
+                    }
+
+                    if (!found)
+                    {
+                        bestScore = float.MaxValue;
+                        foreach (Vector3Int pos in area.allPositionsWithin)
+                        {
+                            if (tilemap.GetTile(pos) != null)
+                            {
+                                Vector3 tileCenter = tilemap.GetCellCenterWorld(pos);
+                                float distance = Vector3.Distance(tileCenter, transform.position);
+                                if (distance < bestScore)
+                                {
+                                    bestScore = distance;
+                                    bestTile = pos;
+                                    found = true;
+                                }
                             }
                         }
                     }
@@ -136,7 +147,6 @@ public class Bullet : MonoBehaviour
                 }
             }
         }
-
         Destroy(gameObject);
     }
 }

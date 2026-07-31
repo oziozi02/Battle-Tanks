@@ -34,6 +34,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (lives <= 0)
         {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.tankDestroyed);
             gameObject.SetActive(false);
             GameManager.Instance.OnPlayerDefeated(playerIndex);
         }
