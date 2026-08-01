@@ -121,4 +121,10 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         canShoot = true;
     }
+
+    public void ResetShootState()
+    {
+        StopAllCoroutines();
+        canShoot = true;
+    }
 }

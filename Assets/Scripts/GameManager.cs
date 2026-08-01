@@ -192,6 +192,7 @@ public class GameManager : MonoBehaviour
         player2Defeated = false;
 
         ScoreManager.Instance.ApplyRetryPenalty();
+        ScoreManager.Instance.ResetTally();
 
         PlayerHealth[] allPlayers = FindObjectsByType<PlayerHealth>(FindObjectsInactive.Include);
         foreach (var p in allPlayers)

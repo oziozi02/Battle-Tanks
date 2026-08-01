@@ -78,7 +78,11 @@ public class PlayerHealth : MonoBehaviour
         GameManager.Instance.UpdateLivesUI(playerIndex, lives);
 
         PlayerController pc = GetComponent<PlayerController>();
-        if (pc != null) pc.ResetStarLevel();
+        if (pc != null)
+        {
+            pc.ResetStarLevel();
+            pc.ResetShootState();
+        }
     }
 
     public void RepositionToStart()
