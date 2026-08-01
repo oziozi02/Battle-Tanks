@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverScoreText;
     public TextMeshProUGUI stageText;
     public GameObject pausePanel;
+    public GameObject newHighScoreLabel;
+    public GameObject gameCompleteHighScoreLabel;
 
     public bool twoPlayerMode = false;
     private bool player1Defeated = false;
@@ -103,6 +105,7 @@ public class GameManager : MonoBehaviour
         gameOverPanel.SetActive(true);
         gameOverReasonText.text = "Run over! No retries in Hardcore.";
         gameOverScoreText.text = "Score: " + ScoreManager.Instance.GetCumulativeTotal();
+        newHighScoreLabel.SetActive(ScoreManager.Instance.IsNewHighScore());
         retryButton.SetActive(false); // hide retry, only main menu option remains
         AudioManager.Instance.PlaySFX(AudioManager.Instance.gameOver);
         Time.timeScale = 0f;
@@ -116,6 +119,7 @@ public class GameManager : MonoBehaviour
         gameOverPanel.SetActive(true);
         gameOverReasonText.text = reason;
         gameOverScoreText.text = "Score: " + ScoreManager.Instance.GetCumulativeTotal();
+        newHighScoreLabel.SetActive(ScoreManager.Instance.IsNewHighScore());
         retryButton.SetActive(true);
         AudioManager.Instance.PlaySFX(AudioManager.Instance.gameOver);
         Time.timeScale = 0f;
@@ -209,6 +213,7 @@ public class GameManager : MonoBehaviour
         ScoreManager.Instance.CheckAndSaveHighScore();
         gameCompletePanel.SetActive(true);
         gameCompleteScoreText.text = "Final Score: " + ScoreManager.Instance.GetCumulativeTotal();
+        gameCompleteHighScoreLabel.SetActive(ScoreManager.Instance.IsNewHighScore());
         AudioManager.Instance.PlayJingle(AudioManager.Instance.gameCompleteJingle);
     }
 

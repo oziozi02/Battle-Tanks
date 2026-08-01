@@ -12,6 +12,7 @@ public class ScoreManager : MonoBehaviour
     private int scoreP1 = 0;
     private int scoreP2 = 0;
     private int cumulativeTotal = 0;
+    private bool newHighScoreThisRun = false;
 
     void Awake()
     {
@@ -97,6 +98,7 @@ public class ScoreManager : MonoBehaviour
     public void ResetCumulativeTotal()
     {
         cumulativeTotal = 0;
+        newHighScoreThisRun = false;
     }
 
     public int GetHighScore()
@@ -111,6 +113,12 @@ public class ScoreManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("HighScore", cumulativeTotal);
             PlayerPrefs.Save();
+            newHighScoreThisRun = true;
         }
+    }
+
+    public bool IsNewHighScore()
+    {
+        return newHighScoreThisRun;
     }
 }
