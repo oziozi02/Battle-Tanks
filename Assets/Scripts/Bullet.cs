@@ -35,6 +35,12 @@ public class Bullet : MonoBehaviour
     {
         if (hasHit) return;
 
+        // Pass through power-ups entirely - no interaction with bullets
+        if (other.GetComponent<PowerUp>() != null)
+        {
+            return;
+        }
+
         // Check for water/ice pass-through FIRST, before setting hasHit
         TilemapCollider2D tilemapCollider = other.GetComponent<TilemapCollider2D>();
         if (tilemapCollider != null)

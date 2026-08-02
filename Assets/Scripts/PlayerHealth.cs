@@ -41,6 +41,12 @@ public class PlayerHealth : MonoBehaviour
         else
         {
             transform.position = startingPosition;
+            PlayerController pc = GetComponent<PlayerController>();
+            if (pc != null)
+            {
+                pc.ResetStarLevel();
+                pc.ResetShootState();
+            }
         }
     }
 

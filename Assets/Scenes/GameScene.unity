@@ -4446,8 +4446,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StageManager
   stages:
   - {fileID: 11400000, guid: 4e61e2db0080f434fbe7d8c9b8166b07, type: 2}
-  - {fileID: 11400000, guid: 77a5d1a5d3a1c57498eb76cffcfafa03, type: 2}
   - {fileID: 11400000, guid: 44c5b891ce872094fb308d087ee14849, type: 2}
+  - {fileID: 11400000, guid: 01c477be8e7d28b40be633a191bc9d98, type: 2}
+  - {fileID: 11400000, guid: ca3618b791939c34381a99d125487eac, type: 2}
+  - {fileID: 11400000, guid: efac0f9e1f52fd845a2d7df2dbfc4893, type: 2}
+  - {fileID: 11400000, guid: 31d7e24cb4425ae43844d6f6d247e974, type: 2}
+  - {fileID: 11400000, guid: e48f8312b93509c4c9d510f7ce050e07, type: 2}
+  - {fileID: 11400000, guid: 01baa56026441034192fb05e9d3ce8d7, type: 2}
+  - {fileID: 11400000, guid: f7bcb23b18a41404cbc11e8899de914a, type: 2}
+  - {fileID: 11400000, guid: 2288672c3b84ef24aac00017f5513f0a, type: 2}
+  - {fileID: 11400000, guid: 77a5d1a5d3a1c57498eb76cffcfafa03, type: 2}
+  - {fileID: 11400000, guid: b84c559b3da66a94c8556dc8580dcac1, type: 2}
+  - {fileID: 11400000, guid: 17f859da122019943bd3dd3e21a6ae05, type: 2}
+  - {fileID: 11400000, guid: 976fd29355d416a4185075321896a2f4, type: 2}
+  - {fileID: 11400000, guid: 802aee03a69f46e4ab68ffd48f27f0dd, type: 2}
+  - {fileID: 11400000, guid: 2427fb136fa399c43aead89ea914f52f, type: 2}
+  - {fileID: 11400000, guid: e1abfdca5b2094d4db1b86fe3b5b2050, type: 2}
+  - {fileID: 11400000, guid: 3e554c85571457e49a26fb65f8e0bb7c, type: 2}
+  - {fileID: 11400000, guid: 9825a065379afe84a8b34ef55884036f, type: 2}
+  - {fileID: 11400000, guid: 145220f110525034c820941956d4d0ca, type: 2}
   levelLoader: {fileID: 769131594}
   enemySpawner: {fileID: 21969354}
 --- !u!4 &864630447
