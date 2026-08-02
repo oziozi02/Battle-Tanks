@@ -34,6 +34,15 @@ public class MainMenu : MonoBehaviour
         difficultyPanel.SetActive(true);
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
+    }
+
     public void StartEasy()
     {
         PlayerPrefs.SetInt("Difficulty", (int)Difficulty.Easy);
