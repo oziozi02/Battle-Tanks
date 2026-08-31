@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject playerCountPanel;
     public GameObject difficultyPanel;
+    public GameObject creditsPanel;
     public TextMeshProUGUI highScoreText;
 
     void Start()
@@ -64,6 +65,18 @@ public class MainMenu : MonoBehaviour
     public void GoBack()
     {
         difficultyPanel.SetActive(false);
+        playerCountPanel.SetActive(true);
+    }
+
+    public void ShowCredits()
+    {
+        playerCountPanel.SetActive(false);
+        creditsPanel.SetActive(true);
+    }
+
+    public void GoBackFromCredits()
+    {
+        creditsPanel.SetActive(false);
         playerCountPanel.SetActive(true);
     }
 }
