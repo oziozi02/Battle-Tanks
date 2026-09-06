@@ -22,7 +22,6 @@ public class LevelLoader : MonoBehaviour
 
     private GameObject currentEagle;
 
-    // Adjust these two to match your actual border layout
     private readonly Vector2Int fixedEaglePosition = new Vector2Int(12, 1);
     private readonly Vector2Int[] eagleSurroundOffsets = new Vector2Int[]
     {

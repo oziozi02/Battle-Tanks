@@ -52,9 +52,10 @@ public class PowerUp : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PowerUpManager.Instance.ActivatePowerUp(type);
             PlayerController pc = other.GetComponent<PlayerController>();
+            PlayerHealth ph = other.GetComponent<PlayerHealth>();
             int idx = pc != null ? pc.playerIndex : 1;
+            PowerUpManager.Instance.ActivatePowerUp(type, pc, ph);
             ScoreManager.Instance.RegisterPowerUp(idx, transform.position);
             AudioManager.Instance.PlaySFX(AudioManager.Instance.powerUpPickup);
             Destroy(gameObject);

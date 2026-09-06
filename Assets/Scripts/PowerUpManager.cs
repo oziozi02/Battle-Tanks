@@ -9,7 +9,7 @@ public class PowerUpManager : MonoBehaviour
         Instance = this;
     }
 
-    public void ActivatePowerUp(PowerUpType type)
+    public void ActivatePowerUp(PowerUpType type, PlayerController pc, PlayerHealth ph)
     {
         switch (type)
         {
@@ -17,16 +17,16 @@ public class PowerUpManager : MonoBehaviour
                 ActivateGrenade();
                 break;
             case PowerUpType.Helmet:
-                ActivateHelmet();
+                ph.ActivateInvincibility(8f);
                 break;
             case PowerUpType.Shovel:
                 ActivateShovel();
                 break;
             case PowerUpType.Star:
-                ActivateStar();
+                pc.UpgradeStar();
                 break;
             case PowerUpType.Tank:
-                ActivateTank();
+                ph.AddLife();
                 break;
             case PowerUpType.Timer:
                 ActivateTimer();
@@ -48,24 +48,9 @@ public class PowerUpManager : MonoBehaviour
         EnemyTank.FreezeAll(6f);
     }
 
-    void ActivateTank()
-    {
-        FindAnyObjectByType<PlayerHealth>().AddLife();
-    }
-
-    void ActivateHelmet()
-    {
-        FindAnyObjectByType<PlayerHealth>().ActivateInvincibility(8f);
-    }
-
     void ActivateShovel()
     {
         FindAnyObjectByType<LevelLoader>().ActivateShovel(15f);
-    }
-
-    void ActivateStar()
-    {
-        FindAnyObjectByType<PlayerController>().UpgradeStar();
     }
 
     public GameObject[] powerUpPrefabs; // In inspector
