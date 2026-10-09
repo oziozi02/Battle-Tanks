@@ -1,1 +1,1 @@
-Unity project files for the thesis project - Development of a 2D video game Battle Tanks in the Unity framework.
+A 2D remake of the NES classic Battle City, built in Unity 6 with C# as my bachelor's thesis at the University of Belgrade, School of Electrical Engineering. It includes tile-based destructible terrain, four enemy types with their own behavior, six power-ups, one- and two-player modes, three difficulty tiers, a scoring system with a persistent high score, and a ScriptableObject-based level editor used to design 20 levels.
