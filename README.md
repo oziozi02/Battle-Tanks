@@ -26,6 +26,8 @@ The player defends a base (the eagle) against waves of enemy tanks across 20 lev
 
 ## Running the game
 
+**Prebuilt version:** Download the latest [Windows build](https://github.com/oziozi02/Battle-Tanks/releases) and run `BattleTanks.exe`. Keep the `_Data` folder next to the executable.
+
 **From source:**
 1. Install Unity **[exact version, see `ProjectSettings/ProjectVersion.txt`]**
 2. Clone this repository and open the folder as a project in Unity Hub
